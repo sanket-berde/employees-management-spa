@@ -2,21 +2,14 @@ import { createSlice, current } from '@reduxjs/toolkit'
 import { Employee } from '../../types/types'
 import { AppDispatch, RootState } from '../store';
 import { api } from '../../service/api';
+import { setLoading } from './loadingSlice';
 
 export interface EmployeeState {
     employees: Employee[]
 }
 
 const initialState: EmployeeState = {
-    employees: [{
-      name: "",
-      dateOfBirth: "",
-      position: "",
-      salary: "",
-      hireDate: "",
-      email: "",
-      phoneNumber: ""
-    }]
+    employees: []
 }
 
 export const employeeSlice = createSlice({
@@ -48,10 +41,13 @@ export const employeeSlice = createSlice({
 export const fetchAllEmployees = () => {
   return async (dispatch: AppDispatch) => {
     try {
+      dispatch(setLoading(true));
       const resp: void = await api.get('/api/employees');
       dispatch(setEmployees(resp));
     } catch(e) {
       dispatch(setEmployees([]));
+    } finally {
+      dispatch(setLoading(false));
     }
   }
 }
@@ -61,7 +57,9 @@ export const addEmployee = (data: Employee) => {
     try {
       const resp: void = await api.post('/api/employees', data);
       dispatch(addEmployeeDetail(resp));
-    } catch(e) { }
+    } catch(e) { } finally {
+      dispatch(setLoading(false));
+    }
   }
 }
 
@@ -70,7 +68,9 @@ export const putEmployee = (employeeId: Number | undefined, data: Employee) => {
     try {
       const resp: void = await api.put(`/api/employees/${employeeId}`, data);
       dispatch(updateEmployee({employeeId, data}));
-    } catch(e) { }
+    } catch(e) { } finally {
+      dispatch(setLoading(false));
+    }
   }
 }
 
@@ -79,7 +79,9 @@ export const deleteEmployee = (employeeId: number) => {
     try {
       const resp: void = await api.delete(`/api/employees/${employeeId}`);
       dispatch(removeEmployee(employeeId));
-    } catch(e) { }
+    } catch(e) { } finally {
+      dispatch(setLoading(false));
+    }
   }
 }
 

@@ -5,9 +5,11 @@ import {
   } from '@reduxjs/toolkit'
   
 import { employeeReducer } from './slices/employeeSlice';
+import { loadingReducer } from './slices/loadingSlice';
 
   export const rootReducer = {
     employee: employeeReducer,
+    loader: loadingReducer
   }
   
   export const appReducer = combineReducers(rootReducer)

@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 import { routes } from './routes/Router'
 import ResponsiveAppBar from './components/Appbar'
+import PageLoader from './components/PageLoader';
 
 
 
@@ -17,6 +18,7 @@ const App: FC = (): ReactElement => {
       <div className='app-wrapper'>
         <ResponsiveAppBar />
         {content}
+        <PageLoader />
       </div>
     </ErrorBoundary>
   )
