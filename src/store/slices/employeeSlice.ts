@@ -3,6 +3,7 @@ import { Employee } from '../../types/types'
 import { AppDispatch, RootState } from '../store';
 import { api } from '../../service/api';
 import { setLoading } from './loadingSlice';
+import { setSnackBarOptions } from './alertSlice';
 
 export interface EmployeeState {
     employees: Employee[]
@@ -66,6 +67,7 @@ export const addEmployee = (data: Employee) => {
       dispatch(setLoading(true));
       const resp: void = await api.post('/api/employees', data);
       dispatch(addEmployeeDetail(resp));
+      dispatch(setSnackBarOptions({ open: true, message: 'Team Member Added!'}))
     } catch(e) { } finally {
       dispatch(setLoading(false));
     }
@@ -78,6 +80,7 @@ export const putEmployee = (employeeId: Number | undefined, data: Employee) => {
       dispatch(setLoading(true));
       await api.put(`/api/employees/${employeeId}`, data);
       dispatch(updateEmployee({employeeId, data}));
+      dispatch(setSnackBarOptions({ open: true, message: 'Team Member Updated!'}))
     } catch(e) { } finally {
       dispatch(setLoading(false));
     }
@@ -90,6 +93,7 @@ export const deleteEmployee = (employeeId: Number | undefined) => {
       dispatch(setLoading(true));
       await api.delete(`/api/employees/${employeeId}`);
       dispatch(removeEmployee(employeeId));
+      dispatch(setSnackBarOptions({ open: true, message: 'Team Member Deleted!'}))
     } catch(e) { } finally {
       dispatch(setLoading(false));
     }

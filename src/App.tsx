@@ -9,7 +9,10 @@ import PageLoader from './components/PageLoader';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import './App.css';
-import { Box } from '@mui/material';
+import { Box, Snackbar } from '@mui/material';
+import { setSnackBarOptions } from './store/slices/alertSlice';
+import { RootState, useAppDispatch, useAppSelector } from './store/store';
+import { green } from '@mui/material/colors';
 
 const darkTheme = createTheme({
   palette: {
@@ -20,6 +23,13 @@ const darkTheme = createTheme({
 
 const App: FC = (): ReactElement => {
   const content = useRoutes(routes)
+  const dispatch = useAppDispatch();
+
+  const { open, autoHideDuration, message } = useAppSelector((state: RootState) => state.alert);
+
+  const handleSnackbarClose = () => {
+    dispatch(setSnackBarOptions({ open: false, message: '' }));
+  }
 
   return (
     <ErrorBoundary fallback={<div>Something went wrong</div>}>
@@ -29,6 +39,17 @@ const App: FC = (): ReactElement => {
           <ResponsiveAppBar />
           {content}
           <PageLoader />
+          <Snackbar
+            sx={{ '.MuiSnackbarContent-root' : { background: green[400] } }}
+            open={open}
+            autoHideDuration={autoHideDuration}
+            onClose={handleSnackbarClose}
+            message={message}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right'
+            }}
+          />
         </Box>
       </ThemeProvider>
     </ErrorBoundary>

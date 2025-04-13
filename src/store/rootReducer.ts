@@ -6,10 +6,12 @@ import {
   
 import { employeeReducer } from './slices/employeeSlice';
 import { loadingReducer } from './slices/loadingSlice';
+import { alertReducer } from './slices/alertSlice';
 
   export const rootReducer = {
     employee: employeeReducer,
-    loader: loadingReducer
+    loader: loadingReducer,
+    alert: alertReducer
   }
   
   export const appReducer = combineReducers(rootReducer)

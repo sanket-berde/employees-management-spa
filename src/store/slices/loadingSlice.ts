@@ -8,7 +8,7 @@ const initialState: LoadingState = {
     loading: false
 }
 
-export const employeeSlice = createSlice({
+export const loadingSlice = createSlice({
   name: 'loader',
   initialState,
   reducers: {
@@ -18,6 +18,6 @@ export const employeeSlice = createSlice({
   },
 });
 
-export const { setLoading } = employeeSlice.actions
+export const { setLoading } = loadingSlice.actions
 
-export const loadingReducer = employeeSlice.reducer
+export const loadingReducer = loadingSlice.reducer
