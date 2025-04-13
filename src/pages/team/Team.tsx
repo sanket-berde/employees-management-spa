@@ -61,10 +61,9 @@ const Team: FC = (): ReactElement => {
                 </Box>
                 <Paper elevation={1} sx={{ p: 1, display: 'flex', flexWrap: 'wrap' }}>
                     {employees
-                    // somehow sorting is not working, need to look into
-//                     .sort((a: any, b: any) => {
-//                         return (Number(a?.employeeId > b?.employeeId || -1))
-// }                   )
+                    // .sort((a: any, b: any) => {
+                    //     return Number(a?.employeeId > b?.employeeId) || 1
+                    // })
                     .map((employee: Employee) => <MemberCard key={`${employee.employeeId}`} {...employee} editClick={onEditClick} deleteClick={onDeleteClick} />)}
                 </Paper>
             </Container>

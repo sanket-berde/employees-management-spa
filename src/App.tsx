@@ -6,7 +6,15 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { routes } from './routes/Router'
 import ResponsiveAppBar from './components/Appbar'
 import PageLoader from './components/PageLoader';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
+import './App.css';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 
 const App: FC = (): ReactElement => {
@@ -14,12 +22,14 @@ const App: FC = (): ReactElement => {
 
   return (
     <ErrorBoundary fallback={<div>Something went wrong</div>}>
-      <CssBaseline />
-      <div className='app-wrapper'>
-        <ResponsiveAppBar />
-        {content}
-        <PageLoader />
-      </div>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <div className='app-wrapper'>
+          <ResponsiveAppBar />
+          {content}
+          <PageLoader />
+        </div>
+      </ThemeProvider>
     </ErrorBoundary>
   )
 }

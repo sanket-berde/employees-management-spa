@@ -37,7 +37,7 @@ export default function EditMember(props: Employee & EditMemberProps) {
             phoneNumber: refs.current['phoneNumber'].value
         }, props.type);
     }
-
+    
     return (
         <Drawer open={props.open} onClose={props.onClose} anchor="right">
             <Box width={400} p={2}>
@@ -47,7 +47,7 @@ export default function EditMember(props: Employee & EditMemberProps) {
                 <TextField fullWidth margin="normal" id="hireDate" label="Hire Data" name="hireDate" defaultValue={props.hireDate} variant="outlined" ref={(el: HTMLDivElement) => addRef('hireDate', el?.querySelector('input')!)} />
                 <TextField fullWidth margin="normal" id="email" label="Email Id" name="email" defaultValue={props.email} variant="outlined" ref={(el: HTMLDivElement) => addRef('email', el?.querySelector('input')!)} />
                 <TextField fullWidth margin="normal" id="phoneNumber" label="Phone Number" name="phoneNumber" defaultValue={props.phoneNumber} variant="outlined" ref={(el: HTMLDivElement) => addRef('phoneNumber', el?.querySelector('input')!)}/>
-                <Button onClick={saveClick} variant='contained'>Save</Button>
+                <Button disabled={!refs.current['name']?.value} onClick={saveClick} variant='contained'>Save</Button>
             </Box>
         </Drawer>
     );
