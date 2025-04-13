@@ -30,7 +30,7 @@ const Home: FC = (): ReactElement => {
     <div className="main home">
       <Container className='hero-section' sx={{ mt: 2 }}>
         <Paper sx={{ p: 2, display: 'flex', flexFlow: 'column', alignItems: 'center', justifyContent: 'center' }}>
-          <Box display="flex" justifyContent="space-between" width='100%'>
+          <Box display="flex" justifyContent="space-between" width='100%' flexWrap="wrap">
             <Box m={2}>
               <Typography component="h1" sx={{ fontSize: 42, fontWeight: 'bold'}}>
                 <div className={`shiny-text`} style={{ animationDuration: '2s' }}>
