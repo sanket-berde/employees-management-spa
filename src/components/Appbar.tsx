@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { ROUTE_CONSTANTS } from '../constants/routeConstants';
 
-const pages = [{label: 'Home', route: ROUTE_CONSTANTS.HOME}, {label: 'About', route: ''}, {label: 'Our Team', route: '/team'}];
+const pages = [{label: 'Home', route: ROUTE_CONSTANTS.HOME}, {label: 'About', route: null}, {label: 'Our Team', route: '/team'}];
 const settings = ['Logout'];
 
 function ResponsiveAppBar() {
@@ -113,7 +113,7 @@ function ResponsiveAppBar() {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {pages.map((page: any) => (
               <Button
                 href={page.route}
                 key={page.label}

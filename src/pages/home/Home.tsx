@@ -1,5 +1,5 @@
-import { Box, Button, Card, Container, Paper, Typography } from '@mui/material'
-import type { FC, ReactElement } from 'react'
+import { Box, Button, Container, Paper, Typography } from '@mui/material'
+import { useEffect, type FC, type ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_CONSTANTS } from '../../constants/routeConstants';
 import FeaturedMember from '../../components/FeaturedMember';
@@ -7,13 +7,24 @@ import PeopleIcon from '@mui/icons-material/People';
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { deepOrange } from '@mui/material/colors';
+import { RootState, useAppDispatch, useAppSelector } from '../../store/store';
+import { fetchAllEmployees } from '../../store/slices/employeeSlice';
 
 const Home: FC = (): ReactElement => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { employees } = useAppSelector((state: RootState) => state.employee);
+
+    useEffect(() => {
+        dispatch(fetchAllEmployees());
+    }, [dispatch]);
+
 
   const getStartedClick = () => {
     navigate(ROUTE_CONSTANTS.TEAM);
   }
+
+  const randomSelectedEmployee = employees[Math.floor(Math.random() * employees.length)];
 
   return (
     <div className="main home">
@@ -29,7 +40,7 @@ const Home: FC = (): ReactElement => {
               <Typography sx={{ mb: 2, color: '#ffffffde', fontFamily: 'Atlassian Sans' }}>Expore our amazing team and learn about their roles, skills and contributions.</Typography>
               <Button sx={{ mb: 2 }} variant='contained' color='secondary' onClick={getStartedClick}>Meet the Team</Button>
             </Box>
-            <FeaturedMember />
+            <FeaturedMember {...randomSelectedEmployee} />
           </Box>
           <Box mb={2} display="flex" justifyContent="space-evenly" alignItems="center" flexWrap="wrap" width="100%">
             <Paper elevation={8} sx={{ m: 2, flex: 1, background: 'transparent', display: 'flex', flexFlow: 'column', padding: 2, alignItems: 'center' }}>

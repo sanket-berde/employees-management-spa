@@ -1,7 +1,7 @@
 import type { RouteObject } from 'react-router-dom'
 
 import { ROUTE_CONSTANTS } from '../constants/routeConstants'
-import { Home, Team } from '../pages'
+import { Home, Team, Member } from '../pages'
 
 const routes: RouteObject[] = [
   {
@@ -15,6 +15,10 @@ const routes: RouteObject[] = [
   {
     path: ROUTE_CONSTANTS.TEAM,
     element: <Team />,
+  },
+  {
+    path: ROUTE_CONSTANTS.MEMBER,
+    element: <Member />,
   },
 ]
 

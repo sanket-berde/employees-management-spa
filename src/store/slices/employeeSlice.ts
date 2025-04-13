@@ -43,8 +43,12 @@ export const employeeSlice = createSlice({
 });
 
 export const fetchAllEmployees = () => {
-  return async (dispatch: AppDispatch) => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
     try {
+      // if employees already loaded on page, ignore API call
+      if(getState().employee.employees.length) {
+        return;
+      }
       dispatch(setLoading(true));
       const resp: void = await api.get('/api/employees');
       dispatch(setEmployees(resp));
@@ -72,7 +76,7 @@ export const putEmployee = (employeeId: Number | undefined, data: Employee) => {
   return async (dispatch: AppDispatch) => {
     try {
       dispatch(setLoading(true));
-      const resp: void = await api.put(`/api/employees/${employeeId}`, data);
+      await api.put(`/api/employees/${employeeId}`, data);
       dispatch(updateEmployee({employeeId, data}));
     } catch(e) { } finally {
       dispatch(setLoading(false));
@@ -84,7 +88,7 @@ export const deleteEmployee = (employeeId: Number | undefined) => {
   return async (dispatch: AppDispatch) => {
     try {
       dispatch(setLoading(true));
-      const resp: void = await api.delete(`/api/employees/${employeeId}`);
+      await api.delete(`/api/employees/${employeeId}`);
       dispatch(removeEmployee(employeeId));
     } catch(e) { } finally {
       dispatch(setLoading(false));

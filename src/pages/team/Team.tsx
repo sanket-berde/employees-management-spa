@@ -18,7 +18,7 @@ const Team: FC = (): ReactElement => {
 
     useEffect(() => {
         dispatch(fetchAllEmployees());
-    }, []);
+    }, [dispatch]);
 
 
     const onAddMember = () => {

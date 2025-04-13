@@ -1,5 +1,4 @@
 import React from 'react';
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -7,10 +6,14 @@ import Typography from '@mui/material/Typography';
 import { Avatar, Badge, Button } from '@mui/material';
 import { Employee } from '../types/types';
 import StarIcon from '@mui/icons-material/Star';
-import { deepPurple, purple, yellow } from '@mui/material/colors';
+import { deepPurple, yellow } from '@mui/material/colors';
+import { ROUTE_CONSTANTS } from '../constants/routeConstants';
+import { useNavigate } from 'react-router-dom';
+
 
 
 export default function FeaturedMember(props: Employee) {
+    const navigate = useNavigate();
     return (
         <Card variant="outlined" sx={{ maxWidth: 300, minWidth: 250, m: 2, borderRadius: 4 }}>
             <CardContent>
@@ -29,10 +32,10 @@ export default function FeaturedMember(props: Employee) {
                         {props.name || 'Sanket Berde'}
                     </Typography>
                     <Typography sx={{ color: 'text.secondary', mb: 3 }}>
-                        {props.position || 'Principal Software Engineer'}
+                        {props.position || 'Designation TBD'}
                     </Typography>
                     <CardActions sx={{ p: 0 }}>
-                        <Button variant="contained" href={`/employee/${props.employeeId}`}>View Profile</Button>
+                        <Button variant="contained" onClick={() => navigate(ROUTE_CONSTANTS.MEMBER.replace(':employeeId', String(props.employeeId)))}>View Profile</Button>
                     </CardActions>
                 </Typography>
             </CardContent>

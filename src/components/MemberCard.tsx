@@ -28,13 +28,13 @@ export default function MemberCard(props: Employee & { editClick: Function, dele
              {props.name || 'Sanket Berde'}
             </Typography>
             <Typography sx={{ color: 'text.secondary', mb: 1 }}>
-                {props.position || 'Principal Software Engineer'}
+                {props.position || 'Designation TBD'}
             </Typography>
             <Typography variant="body2" sx={{ fontSize: 11, display: 'flex', alignItems: 'end', justifyContent: 'space-between' }}>
                 <Box>DOJ: {props.hireDate || 'DD-MM-YYYY'}</Box>
                 <Box display="flex" justifyContent="end" flexDirection="column">
-                    <small>📞: <Link sx={{ textDecoration: 'none' }} href={`tel:${props.phoneNumber}`}>{props.phoneNumber || '-'}</Link></small>
-                    <small>📥: <Link sx={{ textDecoration: 'none' }} href={`mailto:${props.email}`}>{props.email || '-'}</Link></small>
+                    {props.phoneNumber && <small>📞: <Link sx={{ textDecoration: 'none' }} href={`tel:${props.phoneNumber}`}>{props.phoneNumber || '-'}</Link></small>}
+                    {props.email && <small>📥: <Link sx={{ textDecoration: 'none' }} href={`mailto:${props.email}`}>{props.email || '-'}</Link></small>}
                 </Box>
             </Typography>
         </CardContent>

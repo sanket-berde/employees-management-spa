@@ -29,6 +29,9 @@ export default function EditMember(props: Employee & EditMemberProps) {
     };
 
     const saveClick = () => {
+        if(!refs.current['name'].value) {
+            return;
+        }
         props.onSaveClick({
             name: refs.current['name'].value,
             position: refs.current['position'].value,
@@ -47,7 +50,7 @@ export default function EditMember(props: Employee & EditMemberProps) {
                 <TextField fullWidth margin="normal" id="hireDate" label="Hire Data" name="hireDate" defaultValue={props.hireDate} variant="outlined" ref={(el: HTMLDivElement) => addRef('hireDate', el?.querySelector('input')!)} />
                 <TextField fullWidth margin="normal" id="email" label="Email Id" name="email" defaultValue={props.email} variant="outlined" ref={(el: HTMLDivElement) => addRef('email', el?.querySelector('input')!)} />
                 <TextField fullWidth margin="normal" id="phoneNumber" label="Phone Number" name="phoneNumber" defaultValue={props.phoneNumber} variant="outlined" ref={(el: HTMLDivElement) => addRef('phoneNumber', el?.querySelector('input')!)}/>
-                <Button disabled={!refs.current['name']?.value} onClick={saveClick} variant='contained'>Save</Button>
+                <Button onClick={saveClick} variant='contained'>Save</Button>
             </Box>
         </Drawer>
     );
