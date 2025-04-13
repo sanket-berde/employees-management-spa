@@ -9,6 +9,7 @@ import PageLoader from './components/PageLoader';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import './App.css';
+import { Box } from '@mui/material';
 
 const darkTheme = createTheme({
   palette: {
@@ -24,11 +25,11 @@ const App: FC = (): ReactElement => {
     <ErrorBoundary fallback={<div>Something went wrong</div>}>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-        <div className='app-wrapper'>
+        <Box className='app-wrapper' sx={{height: '100vh'}}>
           <ResponsiveAppBar />
           {content}
           <PageLoader />
-        </div>
+        </Box>
       </ThemeProvider>
     </ErrorBoundary>
   )
