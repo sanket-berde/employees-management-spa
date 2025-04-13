@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://your-api-url.com'; // change this
+const API_BASE_URL = 'https://employees-management-svc-e171b980c273.herokuapp.com';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
@@ -33,12 +33,16 @@ const request = async <TResponse>(
       throw new Error(errorData.message || 'API request failed');
     }
 
+    // ✅ If 204 No Content, just return undefined
+    if (response.status === 204) {
+      return undefined as TResponse;
+    }
+
     const result = await response.json().catch(() => {
       throw new Error('Failed to parse JSON response');
     });
-
-    return result as TResponse;
-
+    return result as TResponse;  
+    
   } catch (error) {
     console.error(`Error during API call [${method} ${url}]:`, error);
     throw error;
