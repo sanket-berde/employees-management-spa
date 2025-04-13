@@ -4,7 +4,7 @@ import MemberCard from '../../components/MemberCard';
 import { Employee } from '../../types/types';
 import EditMember from '../../components/EditMember';
 import { RootState, useAppDispatch, useAppSelector } from '../../store/store';
-import { addEmployee, fetchAllEmployees, removeEmployee, putEmployee } from '../../store/slices/employeeSlice';
+import { addEmployee, fetchAllEmployees, putEmployee, deleteEmployee } from '../../store/slices/employeeSlice';
 
 
 const Team: FC = (): ReactElement => {
@@ -34,7 +34,7 @@ const Team: FC = (): ReactElement => {
     }
 
     const onDeleteClick = async (employee: Employee) => {
-        dispatch(removeEmployee(employee.employeeId));
+        dispatch(deleteEmployee(employee.employeeId));
     }
 
     const onSaveClick = async(employee: Employee, type: string) => {

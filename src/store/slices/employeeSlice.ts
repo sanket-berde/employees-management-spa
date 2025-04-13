@@ -26,14 +26,18 @@ export const employeeSlice = createSlice({
     updateEmployee(state: EmployeeState, action) {
       const { employees } = current(state);
       const index = employees.findIndex(item => item.employeeId === action.payload.employeeId)
-      employees.splice(index, 1, action.payload.data)
-      state.employees = employees;
+      const emp = [...employees];
+
+      emp.splice(index, 1, action.payload.data)
+      state.employees = emp;
     },
     removeEmployee(state: EmployeeState, action) {
       const { employees } = current(state);
       const index = employees.findIndex(item => item.employeeId === action.payload)
-      employees.splice(index, 1)
-      state.employees = employees;
+      const emp = [...employees];
+      
+      emp.splice(index, 1)
+      state.employees = emp;
     }
   },
 });
@@ -55,6 +59,7 @@ export const fetchAllEmployees = () => {
 export const addEmployee = (data: Employee) => {
   return async (dispatch: AppDispatch) => {
     try {
+      dispatch(setLoading(true));
       const resp: void = await api.post('/api/employees', data);
       dispatch(addEmployeeDetail(resp));
     } catch(e) { } finally {
@@ -66,6 +71,7 @@ export const addEmployee = (data: Employee) => {
 export const putEmployee = (employeeId: Number | undefined, data: Employee) => {
   return async (dispatch: AppDispatch) => {
     try {
+      dispatch(setLoading(true));
       const resp: void = await api.put(`/api/employees/${employeeId}`, data);
       dispatch(updateEmployee({employeeId, data}));
     } catch(e) { } finally {
@@ -74,9 +80,10 @@ export const putEmployee = (employeeId: Number | undefined, data: Employee) => {
   }
 }
 
-export const deleteEmployee = (employeeId: number) => {
+export const deleteEmployee = (employeeId: Number | undefined) => {
   return async (dispatch: AppDispatch) => {
     try {
+      dispatch(setLoading(true));
       const resp: void = await api.delete(`/api/employees/${employeeId}`);
       dispatch(removeEmployee(employeeId));
     } catch(e) { } finally {
