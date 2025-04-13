@@ -34,6 +34,10 @@ const Member: FC = (): ReactElement => {
     const onDrawerClose = () => {
         setDrawerOpen(false);
     }
+
+    if(!member?.name) {
+        return <Typography component="h3" sx={{ fontSize: 26, m: '20px 0' }}>Member Details Not Found</Typography>
+    }
     
     return (
         <>
